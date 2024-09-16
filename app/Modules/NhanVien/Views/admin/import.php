@@ -8,6 +8,7 @@
 <?= $this->section('content') ?> <!-- start code html here -->
     <div class="hr-game-page">
         <h1 class="h3 mb-2 text-gray-800">Nhập Nhân Viên</h1>
+        <form class="form" action="<?= site_url('admin/nhanvien/create') ?>" method="POST">
         <div class="row">
             <div class="col-md-7">
                 <div class="card shadow mb-4">
@@ -18,7 +19,7 @@
                     </div>
 
                     <div class="card-body">
-                        <form class="form" action="<?= site_url('admin/nhanvien/create') ?>" method="POST">
+                        
                             <div class="form-group">
                                 <label for="name">Họ tên nhân viên:</label>
                                 <input type="text" id="hoten" name="hoten" class="form-control" placeholder="Họ tên" required>
@@ -36,13 +37,30 @@
                                 <label for="name">Mã Game:</label>
                                 <input type="text" id="mascan" name="mascan" class="form-control" placeholder="Mã Scan" required>
                             </div>
-                            <button type="submit" class="btn btn-info">Lưu nhân viên</button>
-                        </form>
+
+                            <div class="form-check form-group">
+                                <label class="form-check-label" style="margin-right:30px;">
+                                <input type="radio" class="form-check-input" name="nv_type"  value="nhanvien" checked> Cá nhân
+                            -  </label>
+                              <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="nv_type" value="phongban"> Đại diện phòng ban
+                              </label>
+                            </div>
+                       
                     </div>
 
                     <div class="card-footer">
-                        <div class="alert alert-warning" role="alert">
-                            <?= session()->get('message') ?> trở về <a href="<?= site_url('admin/nhanvien') ?>">danh sách nhân viên</a>
+                        <div class="row">
+                            <div class="col-md-6 text-left">
+                                <button type="submit" class="btn btn-info">Lưu nhân viên</button> 
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <?php if (session()->getFlashdata('message') !== NULL) : ?>
+                                    <div class="alert alert-warning" role="alert">
+                                        <?= session()->get('message') ?> trở về <a href="<?= site_url('admin/nhanvien') ?>">danh sách nhân viên</a>
+                                    </div>
+                                <?php endif ?>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -82,6 +100,7 @@
                 </div>
             </div>
         </div>
+        </form>
     </div>
 <?= $this->endSection() ?>
 

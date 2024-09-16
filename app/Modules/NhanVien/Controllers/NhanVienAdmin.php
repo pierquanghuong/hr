@@ -63,12 +63,13 @@ class NhanVienAdmin extends BaseController
             'hoten' => 'required',
             'phongban' => 'required',
             'mascan' => 'required',
+            'nv_type' => 'required',
         ];
         $data = $this->request->getPost(array_keys($rules));
 
         //validate data
         if (! $this->validateData($data, $rules)) {
-            return redirect()->back()->withInput()->with('message', 'Bạn chưa chọn người nhận!');
+            return redirect()->back()->withInput()->with('message', 'Bạn chưa nhập đúng dữ liệu!');
         }
 
         $validData = $this->validator->getValidated();
@@ -76,7 +77,7 @@ class NhanVienAdmin extends BaseController
         //Luu db quà tặng
         $this->nhanVienModel->insert($validData);
         
-        return redirect()->back()->withInput()->with('message', 'Lưu thành công');
+        return redirect()->back()->withInput()->with('message', 'Tạo nhân viên thành công');
     }
     
     /**

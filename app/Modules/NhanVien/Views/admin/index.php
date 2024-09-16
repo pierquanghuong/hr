@@ -46,6 +46,7 @@
                                 <tr>
                                     <th>#Id</th>
                                     <th>Họ Tên</th>
+                                    <th>Phân loại </th>
                                     <th>Phòng Ban</th>
                                     <th>Thao tác</th>
                                 </tr>
@@ -56,6 +57,7 @@
                                     <tr>
                                         <td> <?= $row['id'] ?></td>
                                         <td> <?= $row['hoten'] ?></td>
+                                        <td> <?= $row['nv_type'] ?></td>
                                         <td> <?= $row['phongban'] ?></td>
                                         <td> <a href="#" id="showQr" data-name="<?= $row['hoten'] ?>" data-qr="<?= $scan_img_link ?>"> Xem mã</a></td>
                                     </tr>
