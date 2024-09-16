@@ -130,6 +130,7 @@ class HrGameAdmin extends BaseController
             'start_time' => $start_time,
             'end_time' => $end_time,
             'limit' =>service('settings')->get('HrGame.limit'),
+            'room_limit' => service('settings')->get('HrGame.room_limit'),
             'enable' =>service('settings')->get('HrGame.enable'),
         ];
         
@@ -164,6 +165,11 @@ class HrGameAdmin extends BaseController
                 'rules'  => 'required|integer',
                 'errors'    => '{field} phải là số'
             ],
+            'room-limit'    => [
+                'label' => 'Số lần tặng của phòng ban',
+                'rules'  => 'required|integer',
+                'errors'    => '{field} phải là số'
+            ],
         ]);
 
         $data = $this->request->getPost(array_keys($rules));
@@ -182,6 +188,7 @@ class HrGameAdmin extends BaseController
         service('settings')->set('HrGame.start', $db_time_start);
         service('settings')->set('HrGame.end', $db_time_end);
         service('settings')->set('HrGame.limit', $this->request->getPost('game-limit'));
+        service('settings')->set('HrGame.room_limit', $this->request->getPost('room-limit'));
         if ($this->request->getPost('game-enable')) {
             service('settings')->set('HrGame.enable', true);
         } else {

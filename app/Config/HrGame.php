@@ -23,6 +23,7 @@ class HrGame extends BaseConfig
     public $start = '2024-06-01 12:00:00';
     public $end = '2024-06-20 12:00:00';
     public $limit = 1;
+    public $room_limit = 4;
     public $enable = true;
     public $datetimeFormat = [
         'db' => 'Y-m-d G:i:s',

@@ -52,11 +52,20 @@
                                         <input type="text" name="game-end" id="game-end" class="form-control" placeholder="Thời gian kết thúc" value="<?= $data['end_time'] ?>">
                                     </div>
                                 </div>
-
-                                <div class="form-group">
-                                    <label for="inputdefault">Số lần tặng quà</label>
-                                    <input class="form-control" id="inputdefault" name="game-limit" type="number" value="<?= $data['limit'] ?>">
+                              
+                                <div class="form-row">
+                                    <div class="col">
+                                        <label for="inputdefault">Số lần tặng của cá nhân</label>
+                                            <input class="form-control" id="inputdefault" name="game-limit" type="number" value="<?= $data['limit'] ?>">
+                                    </div>
+                                    <div class="col">
+                                        <label for="roomlimit">Số lần tặng của phòng ban</label>
+                                            <input class="form-control" id="roomlimit" name="room-limit" type="number" value="<?= $data['room_limit'] ?>">
+                                    </div>
+                                
                                 </div>
+                              
+
                                 <hr/>
                                 <div class="form-check">
                                 <label class="form-check-label">
