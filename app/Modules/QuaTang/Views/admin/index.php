@@ -2,6 +2,7 @@
 <?= $this->section('page-style') ?>
     <link href="<?= base_url('sb2-admin') ?>/vendor/daterangepicker/daterangepicker.css" rel="stylesheet">
     <link href="<?= base_url('sb2-admin') ?>/vendor/DataTables/datatables.min.css" rel="stylesheet">
+    <link href="<?= base_url('sb2-admin') ?>/vendor/DataTables/buttons.dataTables.css" rel="stylesheet">
     
     <style>
         .hr-game-page table{
@@ -18,6 +19,14 @@
         .time-label {
             font-weight: bold;
             color: blue;
+        }
+        table td:last-child {
+            max-width: 300px; 
+            min-width: 70px; 
+            overflow: hidden; 
+            text-overflow: 
+            ellipsis; 
+            white-space: nowrap;
         }
     </style>
 <?php $this->endSection() ?>
@@ -51,23 +60,27 @@
                 <div class="card-body">
                     <div class="table-responsive">
                 
-                        <table id="PresentTable" class="display" style="width:100%">
+                        <table id="PresentTable" class="display nowrap" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>Thời gian</th>
                                     <th>Người nhận</th>
                                     <th>Người tặng</th>
-                                    <th>Thao tác</th>
+                                    <th width="10%">Lý do</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 
                                 <?php foreach ($quatang as $row) : ?>
                                     <tr>
-                                        <td><?php echo date('H:i d/m/Y ',strtotime($row->created_at)) ?></td>
+                                        <td>
+                                            <a href="<?= site_url('admin/hr-game/detail/' . $row->id) ?>">
+                                                <?php echo date('H:i d/m/Y ',strtotime($row->created_at)) ?>
+                                            </a>
+                                        </td>
                                         <td><?php echo $row->tennguoinhan; ?> - <?php echo $row->phongnguoinhan; ?></td>
                                         <td><?php echo $row->tennguoitang ?>  - <?php echo $row->phongnguoitang; ?></td>
-                                        <td> <a href="<?= site_url('admin/hr-game/detail/' . $row->id) ?>">Xem</a></td>
+                                        <td><span class="over"> <?php echo $row->ly_do; ?> </span></td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
@@ -82,10 +95,21 @@
 <?= $this->section('page-scripts') ?>
     <script src="<?= base_url('sb2-admin') ?>/vendor/daterangepicker/moment.min.js"></script>
     <script src="<?= base_url('sb2-admin') ?>/vendor/DataTables/datatables.min.js"></script>
+    <script src="<?= base_url('sb2-admin') ?>/vendor/DataTables/dataTables.buttons.js"></script>
+    <script src="<?= base_url('sb2-admin') ?>/vendor/DataTables/buttons.dataTables.js"></script>
+    <script src="<?= base_url('sb2-admin') ?>/vendor/DataTables/jszip.min.js"></script>
+    <script src="<?= base_url('sb2-admin') ?>/vendor/DataTables/buttons.html5.min.js"></script>
     <script src="<?= base_url('sb2-admin') ?>/vendor/daterangepicker/daterangepicker.js"></script>
     <script>
         // Call the dataTables jQuery plugin
-        new DataTable('#PresentTable');
+        new DataTable('#PresentTable', {
+            layout: {
+                topStart: {
+                    buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5']
+                }
+            }
+        });
+
         $('input[name="daterange"]').daterangepicker({
             "showWeekNumbers": true,
             ranges: {
@@ -107,8 +131,8 @@
             },
             "linkedCalendars": false,
             "showCustomRangeLabel": false,
-        }, function(start, end, label) {
-        console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+            }, function(start, end, label) {
+            console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
         });
     </script>
 <?= $this->endSection() ?>
