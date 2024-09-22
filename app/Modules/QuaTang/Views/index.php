@@ -51,14 +51,15 @@
                     </div>
                     
                     <button type="submit" class="btn pmd-ripple-effect btn-primary">
-                    <i class="fa fa-pencil"></i> Tặng Quà</button>
+                        <i class="fa fa-pencil"></i> Tặng Quà
+                    </button>
                     
                 </form>
 
-                <?php if (session()->has('game-error')) : ?>
-                <div class="alert alert-warning" role="alert">
-                    <?= session()->get('game-error') ?>
-                </div>
+                <?php if (session()->has('msg')) : ?>
+                    <div class="alert alert-warning" role="alert">
+                        <?= session()->get('msg') ?>
+                    </div>
                 <?php endif;  ?>
             </div>
         </div>

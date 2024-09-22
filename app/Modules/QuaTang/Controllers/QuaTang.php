@@ -3,11 +3,9 @@
 namespace Modules\QuaTang\Controllers;
 
 use App\Controllers\BaseController;
-use CodeIgniter\HTTP\RequestInterface;
-use CodeIgniter\HTTP\ResponseInterface;
+use App\Modules\QuaTang\Models\Support;
 use Modules\QuaTang\Models\QuaTangModel;
 use Modules\NhanVien\Models\NhanVienModel;
-use Psr\Log\LoggerInterface;
 
 class QuaTang extends BaseController
 {
@@ -15,14 +13,17 @@ class QuaTang extends BaseController
 
     protected $quaTangModel;
 
-    public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
+    protected $quatangSupport;
+
+    protected $nhanvienModel;
+
+    public function __construct()
     {
-        parent::initController($request, $response, $logger);
-        // Load the model
         $this->quaTangModel = new QuaTangModel();
+        $this->quatangSupport = new Support();
+        $this->nhanvienModel = new NhanVienModel();
     }
 
-        
     /**
      * intro render trang intro - gioi thieu hr game
      *
@@ -47,13 +48,24 @@ class QuaTang extends BaseController
             'mascan' => $seg2,
         ];
         
-        $nhanvienModel = new NhanVienModel();
-        $check_scan = $nhanvienModel->checkScan($seg1, $seg2);
-       
-        if (!$check_scan) {
-            return view($this->folder_directory . 'scan-fail');
+        //check nguoi dung scan tu qr
+        $check_scan = $this->nhanvienModel->checkScan($seg1, $seg2);
+        if (! $check_scan) {
+            return view($this->folder_directory . 'scan-fail', ['msg' => 'Vui lòng scan Mã Qr của bạn']);
         }
-            
+
+        //check game setting
+        $check_game_setting = $this->quatangSupport->check_game_settings();
+        if (!$check_game_setting['code']) {
+            return view($this->folder_directory . 'scan-fail', ['msg' => $check_game_setting['msg']]);
+        }
+
+        $nguoitang = $this->nhanvienModel->where('id', $data['nguoitang'])->first();
+        $check_limit = $this->quatangSupport->check_give_limit($nguoitang['id'], $nguoitang['nv_type']);
+        if (! $check_limit) {
+            return view($this->folder_directory . 'scan-fail', ['msg' => 'Bạn đã sử dụng hết quà tặng!']);
+        }
+
         return view($this->folder_directory . 'index', $data);
     }
     
@@ -67,30 +79,29 @@ class QuaTang extends BaseController
         if (! $this->request->is('post')) {
             return view($this->folder_directory . 'index');
         }
+
+        //validate data
         $rules = [
             'nguoitang' => 'required',
             'nguoinhan' => 'required',
             'ly_do' => 'required',
         ];
         $data = $this->request->getPost(array_keys($rules));
-
-        //validate data
         if (! $this->validateData($data, $rules)) {
-            return redirect()->back()->withInput()->with('game-error', 'Bạn chưa chọn người nhận!');
+            return redirect()->back()->withInput()->with('msg', 'Bạn chưa chọn người nhận!');
         }
 
-        //kiểm tra người tặng quà cho chính mình
-        if ($data['nguoitang'] == $data['nguoinhan']) {
-            return redirect()->back()->withInput()->with('game-error', 'Bạn không thể tặng quà cho mình!');
-        }
+        //du lieu da duoc validate
         $validData = $this->validator->getValidated();
 
-        //Luu db quà tặng
+        //check tang qua chinh minh
+        $check_give_self = $this->quatangSupport->check_give_self($validData['nguoitang'], $validData['nguoinhan']);
+        if (! $check_give_self) {
+            return redirect()->back()->withInput()->with('msg', 'Không thể tự tặng quà cho bạn!');
+        }
+
+        $nguoinhan = $this->nhanvienModel->where('id', $validData['nguoinhan'])->first();
         $this->quaTangModel->insert($validData);
-        $nhanvienModel = new NhanVienModel();
-        $nguoinhan = $nhanvienModel->where('id', $validData['nguoinhan'])->first();
-        
         return view( $this->folder_directory . 'thankyou', ['nguoinhan' => $nguoinhan['hoten']]);
     }
-    
 }

@@ -20,8 +20,12 @@
             margin: 30px 20px;
         }
         .display-3 {
-            font-size: 2em;
+            font-size: 1.5em;
             color: red;
+        }
+        .fail-msg {
+            font-size: 1.5em;
+            color:brown;
         }
     </style>
 <?php $this->endSection() ?>
@@ -32,13 +36,17 @@
         <div class="col-md-4 offset-md-4">
             <div class="main">
             <div class="jumbotron text-center">
-                <h2 class="display-3">Lỗi! <br/>Bạn chắc chắn scan <br/>mã Qr của mình?</h2>
-                    <p class="lead">
-                        Vui lòng scan lại mã QR của bạn hoặc
-                    </p>
+                <h2 class="display-3">
+                    Cảm ơn bạn <br/>
+                    đã tham gia chương trình <br/>
+                    của Phòng Nhân Sự.
+                </h2>
+                    <div class="alert alert-danger fail-msg" role="alert">
+                        <strong> <?php echo($msg) ?></strong>
+                    </div>
                 <hr>
                 <p>
-                Liên hệ phòng Nhân Sự
+                Vui lòng liên hệ phòng Nhân Sự
                 </p>
                 </div>
             </div>

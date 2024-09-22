@@ -81,7 +81,7 @@ class Support extends Model
      */
     public function countPresent($time_start = null, $time_end= null)
     {
-         //check nếu gan thoi gian
+        //check nếu gan thoi gian
         if ($time_start && $time_end) {  
             $this->builder->where($this->table_quatang . '.created_at >=', $time_start);
             $this->builder->where($this->table_quatang . '.created_at <=' , $time_end);
@@ -104,7 +104,6 @@ class Support extends Model
         $count = $this->builder->countAllResults();
         return $count;
     }
-      
     /**
      * getTopNhanVien
      *
@@ -117,7 +116,7 @@ class Support extends Model
     {
         $this->builder->select('hr_nhanvien.hoten as nguoinhan, COUNT(*) AS count');
         $this->builder->join($this->table_nhanvien, 'nguoinhan = hr_nhanvien.id');
-
+        
         //check nếu gan thoi gian
         if ($time_start && $time_end) {  
             $this->builder->where($this->table_quatang . '.created_at >=', $time_start);
@@ -130,4 +129,89 @@ class Support extends Model
         $query = $this->builder->get();
         return $query->getResult();
     }
+    
+    /**
+     * check_give kiểm tra các đièu kiện tặng quà
+     *
+     * @param  mixed $nguoitang id nguoi tang
+     * @param  mixed $nguoinhan id người nhan
+     * @return bool
+     */
+    public function check_game_settings() : array
+    {
+        // kiem tra game da hiêu lục chưa
+        $game_enable = service('settings')->get('HrGame.enable');
+        
+        if (! $game_enable) {
+            return [
+                'code' => false,
+                'msg' => 'Event đang tạm dừng',
+            ];
+        }
+        
+        // Kiem tra co tặng quà trong thời gian còn hieu luc
+        $current_time = Time::Now();
+        $start_time = Time::parse(service('settings')->get('HrGame.start'));
+        $end_time = Time::parse(service('settings')->get('HrGame.end'));
+        
+        if ($current_time->isBefore($start_time) || $current_time->isAfter($end_time)) {
+            return [
+                'code' => false,
+                'msg' => 'Thời gian event hết hiệu lực',
+            ];
+        }
+
+        return [
+            'code' => true,
+            'msg' => 'Kiểm tra thành công',
+        ];
+    }
+    
+    /**
+     * check_give_self Kiem tra tang qua cho minh
+     *
+     * @param  mixed $nguoitang id nguoi tang
+     * @param  mixed $nguoinhan id nguoi nhan
+     * @return bool
+     */
+    public function check_give_self($nguoitang, $nguoinhan) : bool
+    {
+        if ($nguoitang == $nguoinhan) {
+            return false;
+        } 
+        return true;
+    }
+       
+    /**
+     * check_give_limit check so lan tang qua
+     *
+     * @param  mixed $nguoitang id nguoi tang
+     * @param  mixed $type nguoi tang la nhan vien hoac phong ban
+     * @return bool
+     */
+    public function check_give_limit(int $nguoitang, string $type = 'nhanvien') : bool
+    {   
+        helper('hr');
+        $start_time = service('settings')->get('HrGame.start');
+        $end_time = service('settings')->get('HrGame.end');
+        $nv_limit = service('settings')->get('HrGame.limit');
+        $room_mitmit = service('settings')->get('HrGame.room_limit');
+        $limit = $nv_limit;
+        if ($type == 'phongban') {
+            $limit = $room_mitmit;
+        }
+        
+        //check litmit
+        $this->builder->where('hr_quatang.nguoitang', $nguoitang);
+        $this->builder->where($this->table_quatang . '.created_at >=', $start_time);
+        $this->builder->where($this->table_quatang . '.created_at <=' , $end_time);
+        $count = $this->builder->countAllResults();
+
+        if ($count >= $limit) {
+            return false;
+        } 
+        
+        return true;
+    }
 }
+
