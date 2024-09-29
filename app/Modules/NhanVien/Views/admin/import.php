@@ -7,24 +7,35 @@
 
 <?= $this->section('content') ?> <!-- start code html here -->
     <div class="hr-game-page">
-        <h1 class="h3 mb-2 text-gray-800">Nhập Nhân Viên</h1>
         <form class="form" action="<?= site_url('admin/nhanvien/create') ?>" method="POST">
-        <div class="row">
-            <div class="col-md-7">
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <div class="text-center">
-                            <h6 class="h4 text-gray-900 mb-4">Thêm mới nhân viên</h6>
+            <?= csrf_field() ?>
+            <div class="card shadow">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-6 text-left">
+                            <h1 class="h3 mb-2 text-gray-800">Thêm Nhân Viên</h1>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <a href="<?= site_url('admin/nhanvien/import-excel') ?>">Nhập file excel</a> 
                         </div>
                     </div>
-
-                    <div class="card-body">
-                        
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 col-left">
+                            <p class="text-justify">
+                                1. Họ tên hoặc tên đại diện của phòng ban <br/ >
+                                2. Nhân viên hoặc Đại diện cho phòng ban nào <br/ >
+                                3. Mã Nhân Viên sử dụng để quản lý vào tạo mã QR cho nhân viên/đại diện. Mã Nhân Viên phải duy nhất <br/ >
+                                4. Tùy chọn là cá nhân nhân viên hay đại diện cho phòng ban. <br/>
+                                5. Nếu nhập nhiều nhân viên 1 lúc, sử dụng chức năng nhập file excel
+                            </p>
+                        </div>
+                        <div class="col-md-8 col-right">
                             <div class="form-group">
                                 <label for="name">Họ tên nhân viên:</label>
                                 <input type="text" id="hoten" name="hoten" class="form-control" placeholder="Họ tên" required>
                             </div>
-
                             <div class="form-group">
                                 <label for="phongban">Phòng ban</label>
                                 <select name="phongban" id="phongban" class="form-control">
@@ -34,81 +45,39 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="name">Mã Game:</label>
+                                <label for="name">Mã Nhân Viên:</label>
                                 <input type="text" id="mascan" name="mascan" class="form-control" placeholder="Mã Scan" required>
                             </div>
 
                             <div class="form-check form-group">
                                 <label class="form-check-label" style="margin-right:30px;">
-                                <input type="radio" class="form-check-input" name="nv_type"  value="nhanvien" checked> Cá nhân
-                            -  </label>
-                              <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="nv_type" value="phongban"> Đại diện phòng ban
-                              </label>
-                            </div>
-                       
-                    </div>
-
-                    <div class="card-footer">
-                        <div class="row">
-                            <div class="col-md-6 text-left">
-                                <button type="submit" class="btn btn-info">Lưu nhân viên</button> 
-                            </div>
-                            <div class="col-md-6 text-right">
-                                <?php if (session()->getFlashdata('message') !== NULL) : ?>
-                                    <div class="alert alert-warning" role="alert">
-                                        <?= session()->get('message') ?> trở về <a href="<?= site_url('admin/nhanvien') ?>">danh sách nhân viên</a>
-                                    </div>
-                                <?php endif ?>
+                                    <input type="radio" class="form-check-input" name="nv_type"  value="nhanvien" checked> Cá nhân
+                                    -  </label>
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="nv_type" value="phongban"> Đại diện phòng ban
+                                </label>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-md-5">
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <div class="text-center">
-                            <h4 class="h4 text-gray-900 mb-4">Nhập nhân viên từ file excel</h4>
-                            <p class="mb-0 small text-left">Chú ý, dữ liệu nhập có thể bị trùng lặp - bạn nên kiểm tra kĩ file excel trước khi import dữ liệu bằng excel</p>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-md-6 text-left">
+                        <?php if (session()->getFlashdata('message') !== NULL) : ?>
+                                <div class="alert alert-warning" role="alert">
+                                    <?= session()->get('message') ?> trở về <a href="<?= site_url('admin/nhanvien') ?>">danh sách nhân viên</a>
+                                </div>
+                            <?php endif ?>
                         </div>
-                    </div>
-                    <div class="card-body">
-                            <div class="custom-file">
-                                
-                                    <form action="<?= site_url('admin/nhanvien/import') ?>" class="form" method="post" enctype="multipart/form-data">
-                                        <?= csrf_field() ?>
-                                        <div class="form-group">
-                                            <label class="custom-file-label" for="customFile">Tải file lên</label>
-                                            <input type="file" class="custom-file-input" id="customFile" name="excel_file" accept=".xlsx, .xls">
-                                            <small id="helpId" class="text-muted">File excel phải có định dạng theo <a href="<?= base_url('uploads/excel_mau.xlsx') ?>">mẫu</a> </small>
-                                        </div>
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-warning">Import</button>
-                                        </div>
-                                    </form>
-                            </div>
-                    </div>
-                    <div class="card-footer">
-                        <?php if (isset($message)) :  ?>
-                            <div class="alert alert-primary" role="alert">
-                                <strong><?= esc($message) ?></strong>
-                            </div>
-                        <?php endif; ?>
+                        <div class="col-md-6 text-right">
+                            <button type="submit" class="btn btn-info">Lưu nhân viên</button> 
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         </form>
     </div>
 <?= $this->endSection() ?>
 
 <?= $this->section('page-scripts') ?>
-<script>
-    $(".custom-file-input").on("change", function() {
-        var fileName = $(this).val().split("\\").pop();
-        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-    });
-</script>
 <?= $this->endSection() ?>

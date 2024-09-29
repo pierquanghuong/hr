@@ -1,5 +1,6 @@
 <?php
 
+use App\Modules\NhanVien\Controllers\NhanVienAdmin;
 use CodeIgniter\Router\RouteCollection;
 use Modules\QuaTang\Controllers\QuaTang;
 /*
@@ -52,6 +53,8 @@ $routes->group(
         $routes->get('/', 'NhanVienAdmin::index');
         $routes->get('import', 'NhanVienAdmin::import');
         $routes->post('import', 'NhanVienAdmin::postImport');
+        $routes->get('import-excel', 'NhanVienAdmin::importExcel');
+        $routes->post('import-excel', 'NhanVienAdmin::storeExcel');
         $routes->post('create', 'NhanVienAdmin::store');
         $routes->get('resetdata', 'NhanVienAdmin::resetNvData'); //xóa toàn bộ dữ liệu nhân viên
     }

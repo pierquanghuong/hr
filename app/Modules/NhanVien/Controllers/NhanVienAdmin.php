@@ -80,16 +80,23 @@ class NhanVienAdmin extends BaseController
         return redirect()->back()->withInput()->with('message', 'Tạo nhân viên thành công');
     }
     
+    public function importExcel()
+    {
+        return view($this->view_folder_directory . 'import-excel');
+    }
+
     /**
      * postImport Thực hiện nhập dữ liệu excel
      *
      * @return void
      */
-    public function postImport()
+    public function storeExcel()
     {
-        $phongban = config('HrGame')->phongban;
+        if (! $this->request->is('post')) {
+            return view($this->view_folder_directory . 'import-excel');
+        }
         $file = $this->request->getFile('excel_file'); // Get the uploaded file
-
+        
         if ($file->isValid() && !$file->hasMoved()) {
             $spreadsheet = new Spreadsheet();
             $reader = new Xlsx();
@@ -105,18 +112,17 @@ class NhanVienAdmin extends BaseController
                     'hoten'    => $row[1],
                     'phongban'  => $row[2],
                     'mascan' => $row[3],
+                    'nv_type' => $row[4],
                 ];
 
                 // Insert or update the database as needed
                 $this->nhanVienModel->insert($data);
             }
 
-            return view($this->view_folder_directory . 'import', ['message' => 'Nhập dữ liệu thành công']);
+            return redirect()->back()->withInput()->with('message', 'Tạo nhân viên thành công');
         }
 
-        return view($this->view_folder_directory . 'import', 
-                        ['message'=> 'Nhập dữ liệu lỗi', 'phongban' => $phongban
-                    ]);
+        return redirect()->back()->withInput()->with('message', 'Có lỗi trong quá trình nhập dữ liệu!');
     }
     
     /**
@@ -127,8 +133,8 @@ class NhanVienAdmin extends BaseController
     public function resetNvData()
     {
         if ($this->nhanvienBuilder->deleteAllRow()) {
-            return view($this->view_folder_directory . 'import', ['message' => 'Xóa dữ liệu thành công! vui lòng import']);
+            return view($this->view_folder_directory . 'import-excel', ['message' => 'Xóa dữ liệu thành công! vui lòng import']);
         }
-        return view($this->view_folder_directory . 'import', ['message' => 'Có lỗi trong quá trình xóa dữ liệu']);
+        return view($this->view_folder_directory . 'import-excel', ['message' => 'Có lỗi trong quá trình xóa dữ liệu']);
     }
 }
