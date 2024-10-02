@@ -4,17 +4,19 @@ namespace App\Database\Migrations\Modules\NhanVien;
 
 use CodeIgniter\Database\Migration;
 
-class AddTypeCollumn extends Migration
+class AddPointCollumn extends Migration
 {
     protected $table = 'hr_nhanvien';
 
     public function up()
     {
+        //
         $fields = [
-            'nv_type' => [
-                'type'       => 'ENUM',
-                'constraint' => ['nhanvien', 'phongban'],
-                'default'    => 'nhanvien',
+            'nv_point' => [
+                'type'           => 'INT',
+                'constraint'     => 2,
+                'unsigned'       => true,
+                'default'       => 0,
             ],
         ];
 
@@ -23,6 +25,7 @@ class AddTypeCollumn extends Migration
 
     public function down()
     {
-        $this->forge->dropColumn( $this->table, 'nv_type');
+        //
+        $this->forge->dropColumn( $this->table, 'nv_point');
     }
 }

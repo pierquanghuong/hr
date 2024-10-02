@@ -12,12 +12,12 @@ class NhanVienModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id', 'hoten', 'phongban', 'mascan','nv_type'];
+    protected $allowedFields    = ['id', 'hoten', 'phongban', 'mascan','nv_type', 'nv_point'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
 
-    protected array $casts = ['hoten', 'phongban', 'mascan', 'nv_type'];
+    protected array $casts = ['hoten', 'phongban', 'mascan', 'nv_type', 'nv_point'];
     protected array $castHandlers = [];
 
     // Dates

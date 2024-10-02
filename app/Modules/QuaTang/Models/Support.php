@@ -33,6 +33,7 @@ class Support extends Model
         hr_quatang.*, 
         nguoitang.hoten as tennguoitang,
         nguoitang.phongban as phongnguoitang,
+        nguoitang.nv_point as diemnguoitang,
         nguoinhan.hoten as tennguoinhan,
         nguoinhan.phongban as phongnguoinhan');
 

@@ -46,6 +46,7 @@ class QuaTang extends BaseController
         $data = [
             'nguoitang' => $seg1,
             'mascan' => $seg2,
+            'nv_type' => '',
         ];
         
         //check nguoi dung scan tu qr
@@ -65,6 +66,8 @@ class QuaTang extends BaseController
         if (! $check_limit) {
             return view($this->folder_directory . 'scan-fail', ['msg' => 'Bạn đã sử dụng hết quà tặng!']);
         }
+
+        $data['nvtype'] = $nguoitang['nv_type'];
 
         return view($this->folder_directory . 'index', $data);
     }
@@ -87,6 +90,12 @@ class QuaTang extends BaseController
             'ly_do' => 'required',
         ];
         $data = $this->request->getPost(array_keys($rules));
+        $point = 1;
+
+        if ($this->request->getPost('point') !== null) {
+            $point = $this->request->getPost('point');
+        }
+
         if (! $this->validateData($data, $rules)) {
             return redirect()->back()->withInput()->with('msg', 'Bạn chưa chọn người nhận!');
         }
@@ -100,8 +109,13 @@ class QuaTang extends BaseController
             return redirect()->back()->withInput()->with('msg', 'Không thể tự tặng quà cho bạn!');
         }
 
-        $nguoinhan = $this->nhanvienModel->where('id', $validData['nguoinhan'])->first();
+        // insert du lieu tang qua
         $this->quaTangModel->insert($validData);
+
+        //cap nhat point nguoi tang
+        $nguoinhan = $this->nhanvienModel->where('id', $validData['nguoinhan'])->first();
+        $nguoitang = $this->nhanvienModel->where('id', $validData['nguoitang']);
+        $nguoitang->update($validData['nguoitang'], ['nv_point' => $point]);
         return view( $this->folder_directory . 'thankyou', ['nguoinhan' => $nguoinhan['hoten']]);
     }
 }

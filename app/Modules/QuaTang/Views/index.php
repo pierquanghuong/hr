@@ -41,13 +41,18 @@
                             <select class="nhanvien-select2 form-control" id="nhanvien" name="nguoinhan"></select>
                         </div>
 
+                        <?php if ($nvtype == 'phongban') : ?>
+                        <div class="form-group pmd-textfield pmd-textfield-outline pmd-textfield-floating-label col-md-12">
+                          <label for="point">Số điểm: </label>
+                          <input type="number" class="form-control" name="point" id="point" value="1">
+                        </div>
+                        <?php endif; ?>
 
                         <div class="form-group pmd-textfield pmd-textfield-outline pmd-textfield-floating-label col-md-12">
                             <label for="outline-form-layout-address1">Lý do bạn tặng quà?</label>
-                            <textarea name="ly_do" id="txt-lydo" class="form-control" rows=5 required>Tôi muốn cảm ơn anh ấy vì đã giúp đỡ tôi trong công việc</textarea>
+                            <textarea name="ly_do" id="txt-lydo" class="form-control" rows=4 required>Tôi muốn cảm ơn anh ấy vì đã giúp đỡ tôi trong công việc</textarea>
                         </div>
-
-                    
+                       
                     </div>
                     
                     <button type="submit" class="btn pmd-ripple-effect btn-primary">

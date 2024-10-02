@@ -79,7 +79,7 @@
                                             </a>
                                         </td>
                                         <td><?php echo $row->tennguoinhan; ?> - <?php echo $row->phongnguoinhan; ?></td>
-                                        <td><?php echo $row->tennguoitang ?>  - <?php echo $row->phongnguoitang; ?></td>
+                                        <td><?php echo $row->tennguoitang ?>  - <?php echo $row->phongnguoitang; ?> (<?= $row->diemnguoitang ?> điểm)</td>
                                         <td><span class="over"> <?php echo $row->ly_do; ?> </span></td>
                                     </tr>
                                 <?php endforeach; ?>
