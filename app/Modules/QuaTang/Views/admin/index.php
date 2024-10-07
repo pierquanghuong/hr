@@ -66,7 +66,7 @@
                                     <th>Thời gian</th>
                                     <th>Người nhận</th>
                                     <th>Người tặng</th>
-                                    <th>Điểm tặng</th>
+                                    <th>Điểm</th>
                                     <th width="10%">Lý do</th>
                                 </tr>
                             </thead>
@@ -81,7 +81,7 @@
                                         </td>
                                         <td><?php echo $row->tennguoinhan; ?> - <?php echo $row->phongnguoinhan; ?></td>
                                         <td><?php echo $row->tennguoitang ?>  - <?php echo $row->phongnguoitang; ?></td>
-                                        <td><?= $row->diemnguoitang ?></td>
+                                        <td><?= $row->give_point ?></td>
                                         <td><span class="over"> <?php echo $row->ly_do; ?> </span></td>
                                     </tr>
                                 <?php endforeach; ?>

@@ -92,30 +92,37 @@ class QuaTang extends BaseController
         $data = $this->request->getPost(array_keys($rules));
         $point = 1;
 
+        // kiểm tra điểm
         if ($this->request->getPost('point') !== null) {
             $point = $this->request->getPost('point');
         }
 
+        // validate dữ liệu
         if (! $this->validateData($data, $rules)) {
             return redirect()->back()->withInput()->with('msg', 'Bạn chưa chọn người nhận!');
         }
 
-        //du lieu da duoc validate
         $validData = $this->validator->getValidated();
-
+        $validData['give_point'] = $point;
+       
         //check tang qua chinh minh
         $check_give_self = $this->quatangSupport->check_give_self($validData['nguoitang'], $validData['nguoinhan']);
         if (! $check_give_self) {
             return redirect()->back()->withInput()->with('msg', 'Không thể tự tặng quà cho bạn!');
         }
 
-        // insert du lieu tang qua
+        // insert du lieu tang qua// lay du lieu ra view
+        $nguoinhan = $this->nhanvienModel->where('id', $validData['nguoinhan'])->first();
+        if ($nguoinhan['nv_type'] != 'phongban') {
+            $validData['give_point'] = 1;
+        }
         $this->quaTangModel->insert($validData);
 
         //cap nhat point nguoi tang
-        $nguoinhan = $this->nhanvienModel->where('id', $validData['nguoinhan'])->first();
         $nguoitang = $this->nhanvienModel->where('id', $validData['nguoitang']);
-        $nguoitang->update($validData['nguoitang'], ['nv_point' => $point]);
+        $new_point = $point + $nguoitang->nv_point;
+        $nguoitang->update($validData['nguoitang'], ['nv_point' => $new_point]);
+        
         return view( $this->folder_directory . 'thankyou', ['nguoinhan' => $nguoinhan['hoten']]);
     }
 }

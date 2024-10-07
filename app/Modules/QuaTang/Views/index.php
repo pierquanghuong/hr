@@ -57,22 +57,22 @@
                     <div class="form-row">
 
                         <div class="form-group pmd-textfield pmd-textfield-outline pmd-textfield-floating-label col-md-12">
-                            <label for="nhanvien">Người bạn muốn tặng</label>
+                            <label for="nhanvien">Người nhận/Receiver</label>
                             <select class="nhanvien-select2 form-control" id="nhanvien" name="nguoinhan"></select>
                         </div>
 
                         <?php if ($nvtype == 'phongban') : ?>
                         <div class="form-group pmd-textfield pmd-textfield-outline pmd-textfield-floating-label col-md-12">
-                          <label for="point">Số điểm: </label>
+                          <label for="point">Số điểm/Points </label>
                           <input type="number" class="form-control" name="point" id="point" value="1">
                         </div>
                         <?php endif; ?>
 
                         <div class="form-group pmd-textfield pmd-textfield-outline pmd-textfield-floating-label col-md-12">
-                            <label for="outline-form-layout-address1">Lý do bạn tặng quà? </label>
+                            <label for="outline-form-layout-address1">Lý do/Reason </label>
                             <textarea name="ly_do" id="txt-lydo" class="form-control" 
-                            placeholder="Mô tả lý do theo mô hình STAR&#10;- Tình huống/Situation?&#10;- Nhiệm vụ/Task?&#10;- Hành động/Action?&#10;- Kết quả/Result?"
-                            rows=10 required></textarea>
+                            placeholder="Mô tả lý do theo mô hình STAR / Please explain the reason for thank-you, use the STAR model"
+                            rows=10 required maxlength="1000"  minlength="300"></textarea>
                         </div>
                        
                     </div>
