@@ -68,8 +68,20 @@
                                     <th>Người tặng</th>
                                     <th>Điểm</th>
                                     <th width="10%">Lý do</th>
+                                    <th>Trạng thái</th>
                                 </tr>
                             </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>Thời gian</th>
+                                    <th>Người nhận</th>
+                                    <th>Người tặng</th>
+                                    <th>Điểm</th>
+                                    <th width="10%">Lý do</th>
+                                    <th>Trạng thái</th>
+                                </tr>
+                            </tfoot>
+                            
                             <tbody>
                                 
                                 <?php foreach ($quatang as $row) : ?>
@@ -83,6 +95,7 @@
                                         <td><?php echo $row->tennguoitang ?>  - <?php echo $row->phongnguoitang; ?></td>
                                         <td><?= $row->give_point ?></td>
                                         <td><span class="over"> <?php echo $row->ly_do; ?> </span></td>
+                                        <td><?php echo display_status($row->status) ?></td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>

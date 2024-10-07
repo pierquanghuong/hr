@@ -68,6 +68,7 @@ class QuaTang extends BaseController
         }
 
         $data['nvtype'] = $nguoitang['nv_type'];
+        //$data['tennguoitang'] = $nguoitang['hoten'];
 
         return view($this->folder_directory . 'index', $data);
     }

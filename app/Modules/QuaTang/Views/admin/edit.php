@@ -9,11 +9,18 @@
             border-radius: 2px;
             padding: 0 10px;
         }
+        .form-check-label {
+            margin-right: 20px;
+        }
     </style>
 <?php $this->endSection() ?>
 
 <?= $this->section('content') ?> <!-- start code html here -->
     <div class="hr-game-page">
+            <!-- start form -->
+            <form action="<?= site_url('admin/hr-game/edit') ?>" method="POST" accept-charset="utf-8">
+            <?= csrf_field() ?>
+            <input type="hidden" name="id" value="<?= $present->id ?>">
             <h1 class="h3 mb-2 text-gray-800">Chi tiết tặng quà số #<?= $present->id ?></h1>
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
@@ -35,14 +42,48 @@
                                 <?= $present->ly_do ?>
                            </span>
                         </div>
+                    
+                        <div class="col-md-3">Phê duyệt </div> 
+                        <div class="col-md-9">
+                            <div class="form-check form-check-inline">
+                                <?php foreach ($present_status_list as $key=>$value): ?>
+                                <label class="form-check-label radio-inline">
+                                    <input class="form-check-input" type="radio" id="status"
+                                    <?php if ($key == $present->status) echo "checked" ?>
+                                    name="status" value="<?= $key ?>"> <?= $value ?>
+                                </label>
+                                <?php endforeach; ?>
+                            </div>
+                            <hr />
+                            <div class="form-group">
+                              <textarea class="form-control" name="note" id="note" rows="4" placeholder="Lý do nếu không phê duyệt"><?= $present->note ?></textarea>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="card-footer text-right">
-                    <a href="<?= site_url('admin/hr-game') ?>" class="btn btn-primary">Trở lại</a>
+                    <div class="row">
+                        <div class="col text-right">
+                            <a href="<?= site_url('admin/hr-game') ?>" class="btn btn-outline-primary">Trở lại</a>
+                            <button type="submit" class="btn btn-primary">Lưu</button>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
+            </form> <!-- end form -->
     </div>
 <?= $this->endSection() ?>
 
 <?= $this->section('page-scripts') ?>
+<script>
+$(document).ready(function(){
+    $('#status').change(function(){
+        var selected_value = $("input[name='status']:checked").val();
+        if (selected_value == 0) {
+            $('#note').focus();
+        }
+    });
+});
+</script>
 <?= $this->endSection() ?>

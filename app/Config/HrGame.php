@@ -29,4 +29,10 @@ class HrGame extends BaseConfig
         'db' => 'Y-m-d G:i:s',
         'display' => 'd-m-Y G:i:s',
     ] ;
+
+    public $present_status = [
+        0 => 'Không duyệt',
+        1 => 'Chờ duyệt',
+        2 => 'Đã Duyệt',
+    ];
 }

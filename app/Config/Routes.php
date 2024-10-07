@@ -25,6 +25,7 @@ $routes->group(
     'admin/hr-game', ['namespace' => 'App\Modules\QuaTang\Controllers'], function ($routes) {
        $routes->get('/','HrGameAdmin::index');
        $routes->get('detail/(:num)', 'HrGameAdmin::edit/$1');
+       $routes->post('edit', 'HrGameAdmin::store');
        $routes->get('statistic', 'HrGameAdmin::statistic');
        $routes->get('settings', 'HrGameAdmin::settings');
        $routes->post('settings', 'HrGameAdmin::storeSettings');

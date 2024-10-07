@@ -70,9 +70,23 @@ class HrGameAdmin extends BaseController
     {
         $quatang = $this->presentSupport->getOne($id);
         if ($quatang) {
-            return view($this->folder_directory . 'edit', ['present' => $quatang]);
+            $present_status_list = setting('HrGame.present_status');
+            return view($this->folder_directory . 'edit', ['present' => $quatang, 'present_status_list' => $present_status_list]);
         }
-        return view('errors/html/error_404');
+        return view('errors/html/error_404',['message' => 'Quà tặng không tồn tại!']);
+    }
+
+    public function store()
+    {
+        if (! $this->request->is('post')) {
+            return view($this->folder_directory . 'index');
+        }
+        $data = $this->request->getPost(['id', 'status', 'note']);
+        $this->quatangModel
+            ->where('id', $data['id'])
+            ->set($data)
+            ->update();
+            return redirect()->to('/admin/hr-game');
     }
     
     /**

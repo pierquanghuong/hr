@@ -1,5 +1,6 @@
 <?php
     use CodeIgniter\I18n\Time;
+use Config\HrGame;
 
     if (! function_exists('to_display_datetime')) {
         /**
@@ -26,6 +27,14 @@
         {
             $result = Time::createFromFormat($format, $display_time);
             return $result->format('Y-m-d G:i:s');
+        }
+    }
+
+    if (! function_exists('display_present_status')) {
+        function display_status(int $status = 1) : string {
+            $status_list = setting('HrGame.present_status');
+            $message = '<span class="label label-danger">' . $status_list[$status] . '</span>';
+            return $message;
         }
     }
 ?>

@@ -12,7 +12,7 @@ class QuaTangModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
-    protected $allowedFields    = ['nguoitang', 'nguoinhan', 'ly_do', 'give_point'];
+    protected $allowedFields    = ['nguoitang', 'nguoinhan', 'ly_do', 'give_point', 'status', 'note'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;

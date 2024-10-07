@@ -55,7 +55,6 @@
                     <input type="hidden" name="nguoitang" value="<?= $nguoitang ?>">
                     <input type="hidden" name="mascan" value="<?= $mascan ?>">
                     <div class="form-row">
-
                         <div class="form-group pmd-textfield pmd-textfield-outline pmd-textfield-floating-label col-md-12">
                             <label for="nhanvien">Người nhận/Receiver</label>
                             <select class="nhanvien-select2 form-control" id="nhanvien" name="nguoinhan"></select>
@@ -72,7 +71,7 @@
                             <label for="outline-form-layout-address1">Lý do/Reason </label>
                             <textarea name="ly_do" id="txt-lydo" class="form-control" 
                             placeholder="Mô tả lý do theo mô hình STAR / Please explain the reason for thank-you, use the STAR model"
-                            rows=10 required maxlength="1000"  minlength="300"></textarea>
+                            rows=6 required maxlength="1000"  minlength="300"></textarea>
                         </div>
                        
                     </div>
