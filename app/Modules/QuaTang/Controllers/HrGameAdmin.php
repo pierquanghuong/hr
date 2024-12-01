@@ -10,7 +10,6 @@ use Psr\Log\LoggerInterface;
 use Modules\NhanVien\Models\NhanVienModel;
 use Modules\QuaTang\Models\QuaTangModel;
 use App\Modules\QuaTang\Models\Support;
-use DateTime;
 
 class HrGameAdmin extends BaseController
 {

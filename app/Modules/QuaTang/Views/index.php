@@ -45,11 +45,8 @@
 <!-- PAge content -->
 <?php $this->section('content') ?>
     <div class="row">
-        <div class="col-md-4 offset-md-4">
-            <div class="main">
-                <div class="header">
-                    <img src="<?= base_url('template/images/banner.png');?>" alt="Tặng Quà" width="100%">
-                </div>
+        <div class="col-md-8 offset-md-2">
+            <div class="gift-form">
                 <form class="form" action="<?= site_url('/tangqua') ?>" method="POST" id="form-validate">
                     <?= csrf_field() ?>
                     <input type="hidden" name="nguoitang" value="<?= $nguoitang ?>">

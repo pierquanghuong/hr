@@ -26,13 +26,13 @@
     <div class="row thankyou-page">
         <div class="col-md-4 offset-md-4">
             <div class="main">
-            <div class="jumbotron text-center">
-                <h1 class="display-3">Cảm ơn bạn!</h1>
-                    <p class="lead"><strong>Bạn đã tặng quà cho <?php echo $nguoinhan ?></strong> <br/> Phòng Nhân Sự chúc bạn <br/>một ngày làm việc hiệu quả</p>
-                <hr>
-                <p>
-                    Nếu muốn tặng quà cho người khác <br/> vui lòng quét lại mã QR của bạn
-                </p>
+                <div class="jumbotron text-center">
+                    <h1 class="display-3">Cảm ơn bạn!</h1>
+                        <p class="lead"><strong>Bạn đã tặng quà cho <?php echo $nguoinhan ?></strong> <br/> Phòng Nhân Sự chúc bạn <br/>một ngày làm việc hiệu quả</p>
+                    <hr>
+                    <p>
+                        Nếu muốn tặng quà cho người khác <br/> vui lòng quét lại mã QR của bạn
+                    </p>
                 </div>
             </div>
         </div>

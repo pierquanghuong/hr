@@ -1,6 +1,6 @@
 <?php
     use CodeIgniter\I18n\Time;
-use Config\HrGame;
+    use Config\HrGame;
 
     if (! function_exists('to_display_datetime')) {
         /**
@@ -35,6 +35,13 @@ use Config\HrGame;
             $status_list = setting('HrGame.present_status');
             $message = '<span class="label label-danger">' . $status_list[$status] . '</span>';
             return $message;
+        }
+    }
+
+    if (! function_exists('display_award')) {
+        function display_award(int $id) : string {
+            $award_list = setting('HrGame.awards');
+            return $award_list[$id]['name'];
         }
     }
 ?>

@@ -3,10 +3,12 @@
 use App\Modules\NhanVien\Controllers\NhanVienAdmin;
 use CodeIgniter\Router\RouteCollection;
 use Modules\QuaTang\Controllers\QuaTang;
+use Modules\Home\Controllers\Home;
 /*
  * @var RouteCollection $routes
  */
-$routes->get('/', [QuaTang::class, 'intro']); //Khai bao home
+$routes->get('/', [Home::class, 'index']); //Khai bao home
+$routes->get('scan/(:any)/(:any)', [Home::class, 'index/$1/$2']); //route scan home
 
 service('auth')->routes($routes); //route Shield package
 
@@ -76,5 +78,25 @@ $routes->group(
 $routes->group(
     'admin', ['namespace' => 'Modules\Admin\Controllers'], function ($routes) {
         $routes->get('/', 'Admin::index');
+    }
+);
+
+/**
+ * Khai báo route module vote
+ */
+$routes->group(
+    'vote', ['namespace' => 'Modules\Vote\Controllers'], function ($routes) {
+        $routes->get('/', 'Vote::index', ['filter' => 'checkScan']); 
+        $routes->get('award/(:any)', 'Vote::award/$1', ['filter' => 'checkScan']);
+        $routes->post('award', 'Vote::storeAward', ['filter' => 'checkScan']);
+    }
+);
+/**
+ * Khai báo route cho vote admin
+ */
+$routes->group(
+    'admin/vote', ['namespace' => 'Modules\Vote\Controllers'], function ($routes) {
+        $routes->get('/', 'VoteAdmin::index');
+        $routes->get('resetdata', 'VoteAdmin::deleteAllVotes'); //xóa toàn bộ dữ liệu vote - sử dụng cho test
     }
 );

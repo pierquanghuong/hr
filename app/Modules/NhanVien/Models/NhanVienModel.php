@@ -39,8 +39,13 @@ class NhanVienModel extends Model
      * @param  mixed $keyword
      * @return void
      */
-    public function search($keyword)
-    {
+    public function search($keyword, $type = null)
+    {   
+        if ($type == 'nhanvien' || $type == 'phongban') {
+            return $this->where('nv_type', $type)
+                        ->like('hoten', $keyword)
+                        ->findAll();
+        }
         return $this->like('hoten', $keyword) // Search by name
                     ->findAll();
     }

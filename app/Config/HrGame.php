@@ -35,4 +35,56 @@ class HrGame extends BaseConfig
         1 => 'Chờ duyệt',
         2 => 'Đã Duyệt',
     ];
+
+    public $awards = [
+        0  => [
+            'name' => 'Employee of the Year/Nhân viên của năm',
+            'type' => 'nhanvien',
+        ],
+        1  => [
+            'name' => 'Most Innovative Employee/Nhân viên có ý tưởng cải tiến nhất',
+            'type' => 'nhanvien',
+        ],
+        2  => [
+            'name' => 'Most Dedicated Employee/Nhân viên có ý tưởng cải tiến nhất',
+            'type' => 'nhanvien',
+        ],
+        3  => [
+            'name' => 'Most Innovative Employee/Nhân viên tận tâm nhất',
+            'type' => 'nhanvien',
+        ],
+        4  => [
+            'name' => 'Best Supportive Employee/Nhân viên hỗ trợ tốt nhất',
+            'type' => 'nhanvien',
+        ],
+        5  => [
+            'name' => 'Best Customer Care Employee/Nhân viên chăm sóc khách hàng tốt nhất',
+            'type' => 'nhanvien',
+        ],
+        6  => [
+            'name' => 'Most Self-Improved Employee/Nhân viên phát triển bản thân nhiều nhất',
+            'type' => 'nhanvien',
+        ],
+        7  => [
+            'name' => 'Most Innovative Employee/Người giải quyết vấn đề tốt nhất',
+            'type' => 'nhanvien',
+        ],
+        8  => [
+            'name' => 'Outstanding Team of the Year/Đội nhóm xuất sắc nhất năm',
+            'type' => 'phongban',
+        ],
+        9  => [
+            'name' => 'Most Innovative Team/Đội nhóm sáng tạo nhất ',
+            'type' => 'phongban',
+        ],
+        10  => [
+            'name' => 'Team Spirit Award/Tinh thần đồng đội',
+            'type' => 'phongban',
+        ],
+        11  => [
+            'name' => 'Revenue Breakthrough/Đột phá doanh thu',
+            'type' => 'phongban',
+        ],
+        
+    ];
 }

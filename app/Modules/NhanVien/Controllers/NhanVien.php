@@ -40,8 +40,9 @@ class NhanVien extends BaseController
      {
         if ($this->request->isAJAX()) {
             $keyword = $this->request->getVar('q');
+            $type = $this->request->getVar('t');
             // Fetch the search results
-            $nhan_vien = $this->nhanVienModel->search($keyword);
+            $nhan_vien = $this->nhanVienModel->search($keyword, $type);
             return $this->response->setJSON($nhan_vien); // Return results as JSON
         }
         return $this->response->setStatusCode(404, 'Không tìm thấy dữ liệu');

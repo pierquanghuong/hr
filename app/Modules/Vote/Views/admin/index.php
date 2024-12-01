@@ -32,27 +32,26 @@
 <?php $this->endSection() ?>
 
 <?= $this->section('content') ?> <!-- start code html here -->
-    <div class="hr-game-page">
-        <h1 class="h3 mb-2 text-gray-800">Quản Lý Hr-Game - Tặng Quà đồng nghiệp</h1>
+    <div class="vote-page">
+        <h1 class="h3 mb-2 text-gray-800">Quản lý đề cử - nhân viên của năm</h1>
             <p class="mb-4">
-                Chương trình Hr-Game tặng quà cho đồng nghiệp. Được phát triển bởi Phòng Nhân Sự nhằm tăng sự đoàn kết cho anh em công ty.
-                Mọi chi tiết xin liên hệ về Phòng Nhân Sư.
+                Chương trình nhân viên của năm - The Award 2024
             </p>
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
                    <div class="row">
                     <div class="col-md-6">
-                    <form action="<?= site_url('admin/hr-game')  ?>" method="GET" class="form-inline form-horizontal float-left">
-                        <h6 class="m-0 font-weight-bold text-primary">Tìm theo thời gian:  </h6>
+                    <form action="<?= site_url('admin/vote')  ?>" method="GET" class="form-inline form-horizontal float-left">
+                        <h6 class="m-0 font-weight-bold text-primary">Tìm theo tên:  </h6>
                         <div class="form-group">
-                            <input class="datetime form-control" id="daterange" type="text" name="daterange" value="" />
+                            <input class="datetime form-control" id="daterange" type="text" name="nominee" value="" />
                             <button type="submit" class="btn btn-primary">Tìm</button>
                         </div>
                     </form>
                     </div>
                     <div class="col-md-6 text-right">
                         <strong>Có <span class="badge badge-success">
-                            <?= $count_quatang ?></span> lượt tặng quà <span class="time-label"><?= $time_label; ?></span>
+                            5</span> lượt đề cử
                         </strong>
                     </div>
                    </div>
@@ -64,27 +63,27 @@
                             <thead>
                                 <tr>
                                     <th>Thời gian</th>
-                                    <th>Người nhận</th>
-                                    <th>Người tặng</th>
-                                    <th>Điểm</th>
+                                    <th>Ứng cử viên</th>
+                                    <th>Người đề cử</th>
+                                    <th width="10%">Giải thưởng</th>
                                     <th>Trạng thái</th>
                                     <th width="10%">Lý do</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 
-                                <?php foreach ($quatang as $row) : ?>
+                                <?php foreach ($votes as $vote) : ?>
                                     <tr>
                                         <td>
-                                            <a href="<?= site_url('admin/hr-game/detail/' . $row->id) ?>">
-                                                <?php echo date('H:i d/m/Y ',strtotime($row->created_at)) ?>
+                                            <a href="<?= site_url('admin/vote/detail/' . $vote->id) ?>">
+                                                <?php echo date('H:i d/m/Y ',strtotime($vote->created_at)) ?>
                                             </a>
                                         </td>
-                                        <td><?php echo $row->tennguoinhan; ?> - <?php echo $row->phongnguoinhan; ?></td>
-                                        <td><?php echo $row->tennguoitang ?>  - <?php echo $row->phongnguoitang; ?></td>
-                                        <td><?= $row->give_point ?></td>
-                                        <td><?=  display_status($row->status) ?></td>
-                                        <td><span class="over"> <?php echo $row->ly_do; ?> </span></td>
+                                        <td><?php echo $vote->nominee_name ?>  - <?php echo $vote->nominee_room; ?></td>
+                                        <td><?php echo $vote->nomineer_name; ?> - <?php echo $vote->nomineer_room; ?></td>
+                                        <td>Giải thưởng <?= $vote->award + 1 ?></td>
+                                        <td><?=  display_status($vote->status) ?></td>
+                                        <td><span class="over"> <?php echo $vote->reason; ?> </span></td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>

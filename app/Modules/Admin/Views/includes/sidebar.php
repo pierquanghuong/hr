@@ -44,6 +44,22 @@
                 </div>
             </li>
             <?php endif; ?>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item <?php if (url_is('admin/vote*')) echo 'active'; ?>">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDecu"
+                    aria-expanded="true" aria-controls="collapseDecu">
+                    <i class="fa fa-gift" aria-hidden="true"></i>
+                    <span>Award 2024</span>
+                </a>
+                <div id="collapseDecu" class="collapse <?php if (url_is('admin/vote*')) echo 'show';?>" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Quản Lý</h6>
+                        <a class="collapse-item <?php if ( uri_string() == 'admin/vote' ) echo 'active';?>" href="<?= site_url('admin/vote') ?>">Hoạt động</a>
+                        <a class="collapse-item <?php if ( uri_string() == 'admin/vote/statistic' ) echo 'active'; ?>" href="<?= site_url('admin/vote/statistic') ?>">Thống kê</a>
+                    </div>
+                </div>
+            </li>
             
             <?php if (auth()->user()->can('menu.access')) : ?>
             <!-- Nav Item - Utilities Collapse Menu -->

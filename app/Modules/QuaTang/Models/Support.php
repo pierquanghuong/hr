@@ -196,10 +196,16 @@ class Support extends Model
         $start_time = service('settings')->get('HrGame.start');
         $end_time = service('settings')->get('HrGame.end');
         $nv_limit = service('settings')->get('HrGame.limit');
-        $room_mitmit = service('settings')->get('HrGame.room_limit');
+        $room_limit = service('settings')->get('HrGame.room_limit');
         $limit = $nv_limit;
+
         if ($type == 'phongban') {
-            $limit = $room_mitmit;
+            $limit = $room_limit;
+        }
+
+        //only for demo
+        if ($type == 'demo') {
+            $limit = 100;
         }
         
         //check litmit

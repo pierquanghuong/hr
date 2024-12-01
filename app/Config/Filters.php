@@ -8,6 +8,7 @@ use CodeIgniter\Filters\DebugToolbar;
 use CodeIgniter\Filters\Honeypot;
 use CodeIgniter\Filters\InvalidChars;
 use CodeIgniter\Filters\SecureHeaders;
+use App\Filters\HrModule\CheckScan;
 
 class Filters extends BaseConfig
 {
@@ -24,6 +25,7 @@ class Filters extends BaseConfig
         'honeypot'      => Honeypot::class,
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
+        'checkScan'     => CheckScan::class, //dang ky fillter check scan
     ];
 
     /**
@@ -38,8 +40,8 @@ class Filters extends BaseConfig
             // 'csrf',
             // 'invalidchars',
             'session' => ['except' => [ 
-                    '/', 'tangqua*', 'nhanvien*', //home va cac trang nguoi dung
-                    'login*', 'register', 'auth/a/*', 'logout' //auth route
+                    '/', 'tangqua*', 'nhanvien*', 'scan*', 'vote*',  //home va cac trang nguoi dung
+                    'login*', 'register', 'auth/a/*', 'logout',  //auth route
                 ]],
         ],
         'after' => [
