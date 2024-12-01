@@ -29,7 +29,7 @@ class Home extends BaseController
      * @param  mixed $seg2
      * @return string
      */
-    public function index($seg1  = false, $seg2  = false): string
+    public function index($seg1  = false, $seg2  = false)
     {   
         //reset session khi vào homepage
         $session = session();
@@ -49,6 +49,6 @@ class Home extends BaseController
        
         $session->set('AuthNhanvien', $nhanvien);
 
-        return view($this->folder_directory . 'index', ['nhanvien' => $nhanvien]);
+        return view($this->folder_directory . 'index');
     }
 }

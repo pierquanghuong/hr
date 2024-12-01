@@ -37,7 +37,10 @@
         }
         h3.nhanvien-info {
             color: #fff;
-            font-size: 1.1em;
+            font-size: 1em;
+            padding: 10px 0;
+            font-weight: bold;
+            font-style: italic;
         }
       
         .bottom-menu .bottom-nav {
@@ -46,7 +49,7 @@
             top: 0;
             left: 0;
             right: 0;
-            padding: 0.8rem 0;
+            padding: 10px 0;
             background-color: #212121;
             z-index: 99;
             will-change: transform;
@@ -61,10 +64,12 @@
             text-align: center;
             font-size: 0.8rem;
             color: #fff;
-            font-size: 1em;
+            
         }
         .bottom-menu a {
             color: #fff;
+            font-size: 1em;
+            font-weight: bold;
         }
         .bottom-menu a:hover {
             text-decoration: none;
@@ -93,43 +98,42 @@
         </div>
     </div>
     <div class="bottom-menu">
-            <nav class="bottom-nav">
-                <div class="bottom-nav-item d-none d-sm-block">
-                    <div class="bottom-nav-link">
-                        <span>
-                            <?php if (session()->has('AuthNhanvien')) : ?>
-                                <h3 class="nhanvien-info">Xin chào: <?= session('AuthNhanvien')['hoten'] ?></h3> 
-                            <?php endif; ?>
-                        </span>
-                    </div>
+        <nav class="bottom-nav">
+            <div class="bottom-nav-item d-none d-sm-block">
+                <div class="bottom-nav-link">
+                    <span>
+                        <?php if (session()->has('AuthNhanvien')) : ?>
+                            <h3 class="nhanvien-info">Xin chào: <?= session('AuthNhanvien')['hoten'] ?></h3> 
+                        <?php endif; ?>
+                    </span>
                 </div>
-                <div class="bottom-nav-item">
-                    <a class="bottom-nav-link" href="<?= site_url('vote') ?>">
-                        <i class="fa fa-heart" aria-hidden="true"></i>
-                        <span>Trang Đề Cử</span>
-                    </a>
-                </div>
-                <div class="bottom-nav-item">
-                    <a class="bottom-nav-link" href="#">
-                        <i class="fa fa-gift" aria-hidden="true"></i>
-                        <span>Trang Tặng Quà</span>
-                    </a>
-                </div>
-                <div class="bottom-nav-item d-none d-sm-block">
-                    <a class="bottom-nav-link" href="#">
-                        <i class="fa fa-address-card" aria-hidden="true"></i>
-                        <span>Trang cá nhân</span>
-                    </a>
-                </div>
-                <div class="bottom-nav-item d-none d-sm-block">
-                    <a class="bottom-nav-link" href="#">
-                        <i class="fa fa-sign-out" aria-hidden="true"></i>
-                        <span>Thoát</span>
-                    </a>
-                </div>
-            </nav>
-        </div>
-    
+            </div>
+            <div class="bottom-nav-item">
+                <a class="bottom-nav-link" href="<?= site_url('vote') ?>">
+                    <i class="fa fa-heart" aria-hidden="true"></i>
+                    <span>Trang Đề Cử</span>
+                </a>
+            </div>
+            <div class="bottom-nav-item">
+                <a class="bottom-nav-link" href="<?= site_url('tangqua') ?>">
+                    <i class="fa fa-gift" aria-hidden="true"></i>
+                    <span>Trang Tặng Quà</span>
+                </a>
+            </div>
+            <div class="bottom-nav-item d-none d-lg-block">
+                <a class="bottom-nav-link" href="#">
+                    <i class="fa fa-address-card" aria-hidden="true"></i>
+                    <span>Trang cá nhân</span>
+                </a>
+            </div>
+            <div class="bottom-nav-item d-none d-lg-block">
+                <a class="bottom-nav-link" href="#">
+                    <i class="fa fa-sign-out" aria-hidden="true"></i>
+                    <span>Thoát</span>
+                </a>
+            </div>
+        </nav>
+    </div>
     <?php $this->renderSection('page-scripts') ?>
 </body>
 </html>

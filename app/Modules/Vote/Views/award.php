@@ -48,40 +48,42 @@
 
 <!-- PAge content -->
 <?php $this->section('content') ?>
-    <div class="col-md-8 offset-md-2">
-        <form class="form award-form" action="<?= site_url('vote/award') ?>" method="POST" id="form-validate">
-            <?= csrf_field() ?>
-    
-            <input type="hidden" name="award" value="<?= $award_id ?>">
-            <h3 class="award-title">
-                Nominator for/Đề cử giải
-                <span class="award-name"> 
-                    <img src="<?= base_url('template/images/trophy.png') ?>" alt="award" class="award-icon">
-                    <?= $award['name'] ?>
-                    <img src="<?= base_url('template/images/trophy.png') ?>" alt="award" class="award-icon">    
-                </span>
-            </h3>
+    <div class="row award-page">
+        <div class="col-md-8 offset-md-2">
+            <form class="form award-form" action="<?= site_url('vote/award') ?>" method="POST" id="form-validate">
+                <?= csrf_field() ?>
+        
+                <input type="hidden" name="award" value="<?= $award_id ?>">
+                <h3 class="award-title">
+                    Nominator for/Đề cử giải
+                    <span class="award-name"> 
+                        <img src="<?= base_url('template/images/trophy.png') ?>" alt="award" class="award-icon">
+                        <?= $award['name'] ?>
+                        <img src="<?= base_url('template/images/trophy.png') ?>" alt="award" class="award-icon">    
+                    </span>
+                </h3>
 
-            <div class="form-group">
-                <label for="nhanvien-select2">Nhân viên - Phòng ban  <span class="en">(Nominator's name)</span></label>
-                <select class="form-control" name="nominee" id="nhanvien-select2"></select>
-                <div class="text-help">Nhập tên nhân viên hoặc phòng ban (Pick a Staff or Room)</div>
-            </div>
-           
-
-            <div class="form-group">
-                <label for="txtReason">Lý do đề cử <span class="en">(Reasons)</span></label>
-                <textarea class="form-control" name="reason" id="txtReason" rows="3"></textarea>
-                <div class="text-help">Lý do và dẫn chứng cụ thể về thành tích của ứng viên cho giải/Reasons and specific evidence of the nominee's achievements</div>
-            </div>
+                <div class="form-group">
+                    <label for="nhanvien-select2">Nhân viên - Phòng ban  <span class="en">(Nominator's name)</span></label>
+                    <select class="form-control" name="nominee" id="nhanvien-select2"></select>
+                    <div class="text-help">Nhập tên nhân viên hoặc phòng ban (Pick a Staff or Room)</div>
+                </div>
             
-            <hr />
-            <div class="button-area text-right">
-                <a href="<?= site_url('vote') ?>" class="btn btn-warning">Hủy/Cancle</a>
-                <button type="submit" class="btn btn-info">Đồng ý/Submit</button>
-            </div>
+
+                <div class="form-group">
+                    <label for="txtReason">Lý do đề cử <span class="en">(Reasons)</span></label>
+                    <textarea class="form-control" name="reason" id="txtReason" rows="3"></textarea>
+                    <div class="text-help">Lý do và dẫn chứng cụ thể về thành tích của ứng viên cho giải/Reasons and specific evidence of the nominee's achievements</div>
+                </div>
                 
-        </form>
+                <hr />
+                <div class="button-area text-right">
+                    <a href="<?= site_url('vote') ?>" class="btn btn-warning">Hủy/Cancle</a>
+                    <button type="submit" class="btn btn-info">Đồng ý/Submit</button>
+                </div>
+                    
+            </form>
+        </div>
     </div>
 <?php $this->endSection() ?>
 

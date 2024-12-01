@@ -33,6 +33,11 @@ class QuaTang extends BaseController
     {
         return view($this->folder_directory . 'intro');
     }
+
+    public function scan($seg1  = false, $seg2  = false)
+    {
+        return redirect(site_url('scan/' . $seg1 . '/' . $seg2));
+    }
     
     /**
      * index trang tạng quà
@@ -41,36 +46,24 @@ class QuaTang extends BaseController
      * @param  mixed $seg2 nguoinhan
      * @return string
      */
-    public function index($seg1  = false, $seg2  = false): string
+    public function index()
     {
-        $data = [
-            'nguoitang' => $seg1,
-            'mascan' => $seg2,
-            'nv_type' => '',
-        ];
+        // lay thong tin da scan ma
+        $session = session();
+        $nguoitang = $session->get('AuthNhanvien');
         
-        //check nguoi dung scan tu qr
-        $check_scan = $this->nhanvienModel->checkScan($seg1, $seg2);
-        if (! $check_scan) {
-            return view($this->folder_directory . 'scan-fail', ['msg' => 'Vui lòng scan Mã Qr của bạn']);
-        }
-
         //check game setting
         $check_game_setting = $this->quatangSupport->check_game_settings();
         if (!$check_game_setting['code']) {
             return view($this->folder_directory . 'scan-fail', ['msg' => $check_game_setting['msg']]);
         }
 
-        $nguoitang = $this->nhanvienModel->where('id', $data['nguoitang'])->first();
         $check_limit = $this->quatangSupport->check_give_limit($nguoitang['id'], $nguoitang['nv_type']);
         if (! $check_limit) {
             return view($this->folder_directory . 'scan-fail', ['msg' => 'Bạn đã sử dụng hết quà tặng!']);
         }
 
-        $data['nvtype'] = $nguoitang['nv_type'];
-        //$data['tennguoitang'] = $nguoitang['hoten'];
-
-        return view($this->folder_directory . 'index', $data);
+        return view($this->folder_directory . 'index', ['nguoitang' => $nguoitang]);
     }
     
     /**

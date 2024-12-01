@@ -29,7 +29,7 @@
             </div>
             <div class="col-6 text-center">
                 <div class="button vote">
-                    <a href="<?= site_url('quatang') ?>">
+                    <a href="<?= site_url('tangqua') ?>">
                         <img src="<?php echo base_url('template/images/present.png')  ?>" alt="present" width="200px"  class="responsive">
                     </a>
                 </div>

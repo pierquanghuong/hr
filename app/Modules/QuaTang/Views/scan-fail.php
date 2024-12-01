@@ -2,17 +2,6 @@
 <!-- Custom Style -->
 <?php $this->section('page-styles') ?>
     <style {csp-style-nonce}>
-        .app {
-            background: url("<?php echo base_url('template/images/bg.gif')  ?>"); 
-        }
-        .main {
-            border: 1px solid #cecece;
-            border-radius: 3;
-            box-shadow: 3px 3px 5px 6px #ccc;
-            margin-top: 40px;
-            border-radius: 2%;
-            background-color: #fff;
-        }
         .title {
             text-align: center;
         }
@@ -32,23 +21,21 @@
    
 <!-- PAge content -->
 <?php $this->section('content') ?>
-<div class="row thankyou-page">
-        <div class="col-md-4 offset-md-4">
-            <div class="main">
+    <div class="row thankyou-page">
+        <div class="col-md-8 offset-md-2">
             <div class="jumbotron text-center">
-                <h2 class="display-3">
-                    Cảm ơn bạn <br/>
-                    đã tham gia chương trình <br/>
-                    của Phòng Nhân Sự.
-                </h2>
-                    <div class="alert alert-danger fail-msg" role="alert">
-                        <strong> <?php echo($msg) ?></strong>
-                    </div>
-                <hr>
-                <p>
-                Vui lòng liên hệ phòng Nhân Sự
-                </p>
-                </div>
+                    <h2 class="display-3">
+                        Cảm ơn bạn <br/>
+                        đã tham gia chương trình <br/>
+                        của Phòng Nhân Sự.
+                    </h2>
+                        <div class="alert alert-danger fail-msg" role="alert">
+                            <strong> <?php echo($msg) ?></strong>
+                        </div>
+                    <hr>
+                    <p>
+                    Vui lòng liên hệ phòng Nhân Sự
+                    </p>
             </div>
         </div>
     </div>

@@ -1,44 +1,12 @@
 <?php
 
-use App\Modules\NhanVien\Controllers\NhanVienAdmin;
-use CodeIgniter\Router\RouteCollection;
-use Modules\QuaTang\Controllers\QuaTang;
 use Modules\Home\Controllers\Home;
 /*
  * @var RouteCollection $routes
  */
 $routes->get('/', [Home::class, 'index']); //Khai bao home
 $routes->get('scan/(:any)/(:any)', [Home::class, 'index/$1/$2']); //route scan home
-
 service('auth')->routes($routes); //route Shield package
-
-/**
- * Khai báo route module hr game
- */
-$routes->group(
-    'tangqua', ['namespace' => 'Modules\QuaTang\Controllers'], function ($routes) {
-        $routes->get('/', 'QuaTang::index');
-        $routes->get('scan/(:any)/(:any)', 'QuaTang::index/$1/$2');
-        $routes->post('/','QuaTang::store'); 
-    }
-);
-//for admin hr game
-$routes->group(
-    'admin/hr-game', ['namespace' => 'App\Modules\QuaTang\Controllers'], function ($routes) {
-       $routes->get('/','HrGameAdmin::index');
-       $routes->get('detail/(:num)', 'HrGameAdmin::edit/$1');
-       $routes->post('edit', 'HrGameAdmin::store');
-       $routes->get('statistic', 'HrGameAdmin::statistic');
-       $routes->get('settings', 'HrGameAdmin::settings');
-       $routes->post('settings', 'HrGameAdmin::storeSettings');
-    }
-);
-
-$routes->group(
-    'api/hr-game', ['namespace' => 'App\Modules\QuaTang\Controllers'], function ($routes) {
-        $routes->get('count/(:num)', 'ApiQuaTang::getTop/$1');
-    }
-);
 
 /**
  * Route Module NhanVien
@@ -81,7 +49,36 @@ $routes->group(
     }
 );
 
-/**
+/************************************************************************************************
+ * Khai báo route module hr game tang qua 
+ */
+$routes->group(
+    'tangqua', ['namespace' => 'Modules\QuaTang\Controllers'], function ($routes) {
+        $routes->get('/', 'QuaTang::index', ['filter' => 'checkScan']);
+        $routes->post('/','QuaTang::store', ['filter' => 'checkScan']);
+        $routes->addRedirect('scan/(:any)/(:any)', 'scan/$1/$2');
+    }
+);
+//for admin hr game
+$routes->group(
+    'admin/hr-game', ['namespace' => 'App\Modules\QuaTang\Controllers'], function ($routes) {
+       $routes->get('/','HrGameAdmin::index');
+       $routes->get('detail/(:num)', 'HrGameAdmin::edit/$1');
+       $routes->post('edit', 'HrGameAdmin::store');
+       $routes->get('statistic', 'HrGameAdmin::statistic');
+       $routes->get('settings', 'HrGameAdmin::settings');
+       $routes->post('settings', 'HrGameAdmin::storeSettings');
+    }
+);
+
+$routes->group(
+    'api/hr-game', ['namespace' => 'App\Modules\QuaTang\Controllers'], function ($routes) {
+        $routes->get('count/(:num)', 'ApiQuaTang::getTop/$1');
+    }
+);
+//***********************************************************************************************
+
+/************************************************************************************************
  * Khai báo route module vote
  */
 $routes->group(
@@ -100,3 +97,4 @@ $routes->group(
         $routes->get('resetdata', 'VoteAdmin::deleteAllVotes'); //xóa toàn bộ dữ liệu vote - sử dụng cho test
     }
 );
+//***********************************************************************************************

@@ -2,17 +2,6 @@
 <!-- Custom Style -->
 <?php $this->section('page-styles') ?>
     <style {csp-style-nonce}>
-        .app {
-            background: url("<?php echo base_url('template/images/bg.gif')  ?>"); 
-        }
-        .main {
-            border: 1px solid #cecece;
-            border-radius: 3;
-            box-shadow: 3px 3px 5px 6px #ccc;
-            margin-top: 10px;
-            border-radius: 2%;
-            background-color: #fff;
-        }
         .title {
             text-align: center;
         }
@@ -49,15 +38,15 @@
             <div class="gift-form">
                 <form class="form" action="<?= site_url('/tangqua') ?>" method="POST" id="form-validate">
                     <?= csrf_field() ?>
-                    <input type="hidden" name="nguoitang" value="<?= $nguoitang ?>">
-                    <input type="hidden" name="mascan" value="<?= $mascan ?>">
+                    <input type="hidden" name="nguoitang" value="<?= $nguoitang['id'] ?>">
+                    <input type="hidden" name="mascan" value="<?= $nguoitang['mascan'] ?>">
                     <div class="form-row">
                         <div class="form-group pmd-textfield pmd-textfield-outline pmd-textfield-floating-label col-md-12">
                             <label for="nhanvien">Người nhận/Receiver</label>
                             <select class="nhanvien-select2 form-control" id="nhanvien" name="nguoinhan"></select>
                         </div>
 
-                        <?php if ($nvtype == 'phongban') : ?>
+                        <?php if ($nguoitang['nv_type'] == 'phongban') : ?>
                         <div class="form-group pmd-textfield pmd-textfield-outline pmd-textfield-floating-label col-md-12">
                           <label for="point">Số điểm/Points </label>
                           <input type="number" class="form-control" name="point" id="point" value="1">
@@ -88,13 +77,12 @@
                     </div>
                     
                 </form>
-
                 <?php if (session()->has('msg')) : ?>
                     <div class="alert alert-warning" role="alert">
                         <?= session()->get('msg') ?>
                     </div>
                 <?php endif;  ?>
-            </div>
+            </div> 
         </div>
     </div>
     <!-- Modal -->
